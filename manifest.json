@@ -3,6 +3,7 @@
   "version": "1.0",
   "description": "Calm Eye",
   "permissions": ["activeTab","declarativeContent","storage"],
+  
   "background": {
     "scripts": ["background.js"],
     "persistent": true

@@ -1,6 +1,5 @@
 chrome.runtime.onInstalled.addListener(function() {
-    chrome.storage.sync.set({color: '#D3D3D3'}, function() {
-      console.log("Default colour: light grey");
+    chrome.storage.sync.set(null, function() {
     });
   });
   chrome.declarativeContent.onPageChanged.removeRules(undefined, function() {
