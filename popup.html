@@ -9,35 +9,45 @@
 </div>
 </head>
 
-<body class="inset">
+<!--Border-->
+<body class="outset">
 <div id="main">
+
 
 <ul class="changeColor">
     <li class="b1">
-      <button class="home" href="#">
-            <span>Home</span>
+      <button id="home">
+        <span>Home</span>
       </button>
     </li>
+
 	<div class="divider"></div>
     <li class = "b2">
       <button id = "hello" class="changeButton">
-			<span>Change Color</span>
-			<script src = "popup.js"></script>
-	  </button>
-	  
-    </li>
+        <span>Change Color</span>
+        
     
-   
+	    </button>
+    </li>
+  
 	<div class="divider"></div>
     <li class = "b3">
-      <button class="optionsButton">
-            <span>Options</span>
+      <button id="optionsButton">
+        <span>Options</span>
       </button>
+
     </li>
+
 </ul>
-    
 </div>
 
+<!--Slider-->
+<div class = "slides_container">
+  <input type="range" min="0" max="255" step="1" id="black" value="0">
+  
+    <div id="display"></div>
+    <script src = "popup.js"></script> <!--Must put script at bottom or it won't function-->
+</div>
 
 </body>
 </html>
