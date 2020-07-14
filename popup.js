@@ -1,4 +1,5 @@
 let changeColor = document.getElementById('hello');
+var bkg = chrome.extension.getBackgroundPage();
 
 chrome.storage.sync.get('color', function(data) {
   changeColor.style.backgroundColor = data.color;
@@ -30,11 +31,15 @@ changeColor.onclick = function(element) {
     chrome.tabs.executeScript(
         tabs[0].id,
         {code: 'document.body.style.background = "' + color + '";'});
-
         
         
   });
 };
 
 
-
+/*document.addEventListener('load', (event)=> {
+  bkg.console.log('The page has fully loaded.');
+});*/
+window.onload = (event) => {
+  chrome.extension.getBackgroundPage().console.log('page is fully loaded');
+};

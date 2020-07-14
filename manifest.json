@@ -3,7 +3,13 @@
   "version": "1.0",
   "description": "Calm Eye",
   "permissions": ["activeTab","declarativeContent","storage"],
-  
+  "content_scripts": [
+    {
+      "matches": ["http://*/*", "https://*/*"],
+      "js": ["content.js"],
+      "run_at": "document_end"
+    }
+  ],
   "background": {
     "scripts": ["background.js"],
     "persistent": true
