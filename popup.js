@@ -23,7 +23,6 @@ for(var i = 0; i < input.length; i++){
 }
 
 
-
 //change color button function
 changeColor.onclick = function(element) {
   let color = display.style.background; //sets the color variable to rgb from input^^
