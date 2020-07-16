@@ -26,12 +26,11 @@ for(var i = 0; i < input.length; i++){
 //change color button function
 changeColor.onclick = function(element) {
   let color = display.style.background; //sets the color variable to rgb from input^^
+  //Using message passing to pass color change to content script.
   chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-    chrome.tabs.executeScript(
-        tabs[0].id,
-        {code: 'document.body.style.background = "' + color + '";'});
-        
-        
+    chrome.tabs.sendMessage(tabs[0].id, {greeting: color}, function(response) {
+      console.log(response.farewell);
+    });
   });
 };
 
