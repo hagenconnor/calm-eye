@@ -20,7 +20,13 @@ myButton.onclick = () => {
     chrome.storage.local.set({enabled:enabled});
     if(!enabled){
       display.style.backgroundColor = "transparent";
+      
+      
     }
+    chrome.tabs.getSelected(null, function(tab) {
+      var code = 'window.location.reload();';
+      chrome.tabs.executeScript(tab.id, {code: code});
+    });
 };
 //---------------------------------------------------------
 
@@ -36,6 +42,12 @@ chrome.storage.sync.get('color', function(data) {
 chrome.storage.local.get('enabled', data => {
   
 if (data.enabled) {
+  
+  chrome.tabs.getSelected(null, function(tab) {
+    var code = 'window.location.reload();';
+    chrome.tabs.executeScript(tab.id, {code: code});
+  });
+  
     //it is enabled, do accordingly
     var input = document.querySelectorAll("input");
     for(var i = 0; i < input.length; i++){
@@ -45,6 +57,7 @@ if (data.enabled) {
     var display = document.getElementById("display");
       display.style.background = "rgb(" + black + ", " + black + ", " + black + ")";
       //sets the bar within the extension to color
+    
       
     var test = display.style.background; 
     chrome.extension.getBackgroundPage().console.log(test);//for background.html
@@ -72,31 +85,6 @@ if (data.enabled) {
 } 
 
 });
-//takes the input from our slider
-/*
-var input = document.querySelectorAll("input");
-for(var i = 0; i < input.length; i++){
-
-  input[i].addEventListener("input", function(){
-    var black = document.getElementById("black").value; 
-    var display = document.getElementById("display");
-      display.style.background = "rgb(" + black + ", " + black + ", " + black + ")";
-      //sets the bar within the extension to color
-      
-      var test = display.style.background; 
-      chrome.extension.getBackgroundPage().console.log(test);//for background.html
-
-      console.log(display.style.background);//testing
-
-      chrome.storage.local.set({key: test}, function() {
-        chrome.extension.getBackgroundPage().console.log('Value is set to ' + test);
-      });
-    
-      
-        });
-}
-
-*/
 
 //change color button function
 changeColor.onclick = function(element) {
@@ -105,9 +93,11 @@ changeColor.onclick = function(element) {
   chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
     chrome.tabs.sendMessage(tabs[0].id, {greeting: color}, function(response) {
       console.log(response.farewell);
+      
     });
   });
 };
+//here
 
 
 window.onload = (event) => {

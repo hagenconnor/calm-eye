@@ -4,12 +4,10 @@ window.onload=function(){
 
     console.log("page load!");
     
-    
-   ///
-      
   
       chrome.storage.local.get('enabled', data => {
           console.log(data.enabled);
+          
         if (data.enabled) {
             //it is enabled, do accordingly
             console.log("hit enabled");
@@ -25,6 +23,7 @@ window.onload=function(){
       });
         } else {
             //it is disabled
+            console.log("hit disabled");
             
             
        } 
