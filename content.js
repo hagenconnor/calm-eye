@@ -1,4 +1,5 @@
 
+
 window.onload=function(){
     console.log("page load!");
     
@@ -12,8 +13,27 @@ window.onload=function(){
        } 
         console.log('Value currently is ' + a.key);
       });
-   
-   
+   ///
+      
+  
+      chrome.storage.local.get('enabled', data => {
+          console.log(data.enabled);
+        if (data.enabled) {
+            //it is enabled, do accordingly
+            console.log("hit enabled");
+            
+        } else {
+            //it is disabled
+            console.log("hit disabled");
+            var elements = document.querySelectorAll("*");
+        for (var i = 0; i < elements.length; i++){
+            elements[i].style.backgroundColor = "black";
+       } 
+        }
+    });
+
+
+    ////
    //Figure out how to get the colour slider data into here,
    //use message passing either for colour or try to pass DOM elements.
    //Prefer to use message passing for colour.
@@ -26,4 +46,7 @@ window.onload=function(){
           elements[i].style.backgroundColor = request.greeting;
      }
     });
+
+
+    
 };

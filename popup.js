@@ -1,5 +1,28 @@
 let changeColor = document.getElementById('hello');
-var bkg = chrome.extension.getBackgroundPage();
+
+
+
+var enabled = false; //disabled by default
+var myButton = document.getElementById('home');
+
+console.log(myButton);
+chrome.storage.local.get('enabled', data => {
+    enabled = !!data.enabled;
+    console.log("h");
+    myButton.textContent = enabled ? 'Disable' : 'Enable';
+});
+
+myButton.onclick = () => {
+    enabled = !enabled;
+    myButton.textContent = enabled ? 'Disable' : 'Enable';
+    chrome.storage.local.set({enabled:enabled});
+};
+
+
+
+
+
+
 
 chrome.storage.sync.get('color', function(data) {
   changeColor.style.backgroundColor = data.color;
@@ -44,9 +67,6 @@ changeColor.onclick = function(element) {
 };
 
 
-/*document.addEventListener('load', (event)=> {
-  bkg.console.log('The page has fully loaded.');
-});*/
 window.onload = (event) => {
   chrome.extension.getBackgroundPage().console.log('page is fully loaded');
 };
