@@ -17,8 +17,17 @@ for(var i = 0; i < input.length; i++){
     var display = document.getElementById("display");
       display.style.background = "rgb(" + black + ", " + black + ", " + black + ")";
       //sets the bar within the extension to color
+      
+      var test = display.style.background; 
+      chrome.extension.getBackgroundPage().console.log(test);//for background.html
 
       console.log(display.style.background);//testing
+
+      chrome.storage.local.set({key: test}, function() {
+        chrome.extension.getBackgroundPage().console.log('Value is set to ' + test);
+      });
+    
+      
         });
 }
 
