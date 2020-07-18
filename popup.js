@@ -21,7 +21,6 @@ myButton.onclick = () => {
     if(!enabled){
       display.style.backgroundColor = "transparent";
       
-      
     }
     chrome.tabs.getSelected(null, function(tab) {
       var code = 'window.location.reload();';
@@ -38,25 +37,25 @@ chrome.storage.sync.get('color', function(data) {
 
 
 
-
+//get the state of the extension
 chrome.storage.local.get('enabled', data => {
   
 if (data.enabled) {
-  
+  //if the extension is enabled allow color change
   chrome.tabs.getSelected(null, function(tab) {
     var code = 'window.location.reload();';
     chrome.tabs.executeScript(tab.id, {code: code});
   });
   
-    //it is enabled, do accordingly
+    //it is enabled, do 
     var input = document.querySelectorAll("input");
     for(var i = 0; i < input.length; i++){
 
     input[i].addEventListener("input", function(){
     var black = document.getElementById("black").value; 
     var display = document.getElementById("display");
-      display.style.background = "rgb(" + black + ", " + black + ", " + black + ")";
-      //sets the bar within the extension to color
+    display.style.background = "rgb(" + black + ", " + black + ", " + black + ")";
+    //sets the bar within the extension to color
     
       
     var test = display.style.background; 
@@ -64,26 +63,21 @@ if (data.enabled) {
 
     console.log(display.style.background);//testing
 
+    //stores the color into chrome storage so content script can access what color to change
     chrome.storage.local.set({key: test}, function() {
         chrome.extension.getBackgroundPage().console.log('Value is set to ' + test);
-      });
-    
-      
-        });
+      }); 
+    });
 }
 
-    
-    
 } else {
-    //it is disabled
+    //it is disabled, do nothing and do not allow color change
     console.log("hit disabled");
     chrome.tabs.getSelected(null, function(tab) {
       var code = 'window.location.reload();';
       chrome.tabs.executeScript(tab.id, {code: code});
     });
-    
-} 
-
+  } 
 });
 
 //change color button function
