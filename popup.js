@@ -1,5 +1,33 @@
+//button for changing colours
 let changeColor = document.getElementById('hello');
-var bkg = chrome.extension.getBackgroundPage();
+
+/*
+*Process of enabling and disabling chrome extension
+*/
+var enabled = false; //disabled by default
+var myButton = document.getElementById('home'); //gets the toggle button
+
+//accessing the enabled value to have the button text change
+chrome.storage.local.get('enabled', data => {
+    enabled = !!data.enabled;
+    myButton.textContent = enabled ? 'Disable' : 'Enable';
+});
+
+//on click change the text and set the value to storage
+myButton.onclick = () => {
+    enabled = !enabled;
+    myButton.textContent = enabled ? 'Disable' : 'Enable';
+    chrome.storage.local.set({enabled:enabled});
+    if(!enabled){
+      display.style.backgroundColor = "transparent";
+      
+    }
+    chrome.tabs.getSelected(null, function(tab) {
+      var code = 'window.location.reload();';
+      chrome.tabs.executeScript(tab.id, {code: code});
+    });
+};
+//---------------------------------------------------------
 
 chrome.storage.sync.get('color', function(data) {
   changeColor.style.backgroundColor = data.color;
@@ -8,20 +36,49 @@ chrome.storage.sync.get('color', function(data) {
 });
 
 
-//takes the input from our slider
-var input = document.querySelectorAll("input");
-for(var i = 0; i < input.length; i++){
 
-  input[i].addEventListener("input", function(){
+//get the state of the extension
+chrome.storage.local.get('enabled', data => {
+  
+if (data.enabled) {
+  //if the extension is enabled allow color change
+  chrome.tabs.getSelected(null, function(tab) {
+    var code = 'window.location.reload();';
+    chrome.tabs.executeScript(tab.id, {code: code});
+  });
+  
+    //it is enabled, do 
+    var input = document.querySelectorAll("input");
+    for(var i = 0; i < input.length; i++){
+
+    input[i].addEventListener("input", function(){
     var black = document.getElementById("black").value; 
     var display = document.getElementById("display");
-      display.style.background = "rgb(" + black + ", " + black + ", " + black + ")";
-      //sets the bar within the extension to color
+    display.style.background = "rgb(" + black + ", " + black + ", " + black + ")";
+    //sets the bar within the extension to color
+    
+      
+    var test = display.style.background; 
+    chrome.extension.getBackgroundPage().console.log(test);//for background.html
 
-      console.log(display.style.background);//testing
-        });
+    console.log(display.style.background);//testing
+
+    //stores the color into chrome storage so content script can access what color to change
+    chrome.storage.local.set({key: test}, function() {
+        chrome.extension.getBackgroundPage().console.log('Value is set to ' + test);
+      }); 
+    });
 }
 
+} else {
+    //it is disabled, do nothing and do not allow color change
+    console.log("hit disabled");
+    chrome.tabs.getSelected(null, function(tab) {
+      var code = 'window.location.reload();';
+      chrome.tabs.executeScript(tab.id, {code: code});
+    });
+  } 
+});
 
 //change color button function
 changeColor.onclick = function(element) {
@@ -30,14 +87,13 @@ changeColor.onclick = function(element) {
   chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
     chrome.tabs.sendMessage(tabs[0].id, {greeting: color}, function(response) {
       console.log(response.farewell);
+      
     });
   });
 };
+//here
 
 
-/*document.addEventListener('load', (event)=> {
-  bkg.console.log('The page has fully loaded.');
-});*/
 window.onload = (event) => {
   chrome.extension.getBackgroundPage().console.log('page is fully loaded');
 };
