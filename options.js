@@ -13,3 +13,19 @@ function constructOptions(kButtonColors) {
   }
 }
 constructOptions(kButtonColors);
+
+const form1 = document.getElementById("exemptionAdd");
+form1.addEventListener("submit", function(addPage){
+  var x = form1.elements.namedItem("site").value;
+  chrome.runtime.sendMessage({greeting: "hello"}, function(response) {
+    console.log(response.farewell);
+  });
+
+});
+const form2 = document.getElementById("exemptionDelete");
+form2.addEventListener("submit", function(deletePage){
+  var y = form2.elements.namedItem("site").value;
+  console.log(y);
+})
+
+

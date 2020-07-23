@@ -6,6 +6,7 @@ let changeColor = document.getElementById('hello');
 */
 var enabled = false; //disabled by default
 var myButton = document.getElementById('home'); //gets the toggle button
+var optionsButton = document.getElementById('optionsButton');
 var exemptions = []; //Maintain a list of site exemptions.
 exemptions.push("https://www.google.ca/");
 
@@ -96,9 +97,18 @@ changeColor.onclick = function(element) {
     });
   });
 };
-//here
 
+//Open options on click of options button.
+optionsButton.onclick = () => {
+  window.open(chrome.runtime.getURL('options.html'));
+} 
 
-window.onload = (event) => {
-  chrome.extension.getBackgroundPage().console.log('page is fully loaded');
-};
+chrome.runtime.onMessage.addListener(
+  function(request, sender, sendResponse) {
+    console.log(sender.tab ?
+                "from a content script:" + sender.tab.url :
+                "from the extension");
+    if (request.greeting == "hello")
+      sendResponse({farewell: "goodbye"});
+  });
+
