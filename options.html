@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+  <link rel="stylesheet" type="text/css" href="options.css" />
   <head>
     <style>
       button {
@@ -14,19 +15,22 @@
     <div id="buttonDiv">
     </div>
   </body>
-  <b>Add a site to exempt</b>
-
+  <b>Add a site to exemptions</b>
   <form id="exemptionAdd">
-    <label for="site">Enter a site to exempt:</label>
-    <input type="text" id="site" name="site"><br><br>
-    <input type="submit" value="Submit">
+    <input type="text" id="site" placeholder = "Enter Website"name="site"><br><br>
+    <input type="submit" id ="submit" value="Submit">
   </form>
-  <b>Delete an existing site from exemptions</b>
+  <b>Delete a site from exemptions</b>
   <form id="exemptionDelete">
-    <label for="site">Enter a site to delete:</label>
-    <input type="text" id="site" name="site"><br><br>
-    <input type="submit" value="Submit">
+    <input type="text" id="site" placeholder ="Enter Website" name="site"><br><br>
+    <input type="submit" id ="submit" value="Submit">
   </form>
+  <body>
+     
+
+<hr></hr>
+
+  </body>
   <button id="debugButton">Print List</button>
   <div id="debugResults"></div>
   <script src="options.js"></script>
