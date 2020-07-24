@@ -8,9 +8,11 @@ var enabled = false; //disabled by default
 var myButton = document.getElementById('home'); //gets the toggle button
 var optionsButton = document.getElementById('optionsButton');
 var exemptions = []; //Maintain a list of site exemptions.
-exemptions.push("https://www.google.ca/");
 
-chrome.storage.local.set({[exemptions]: exemptions}, function() {
+chrome.storage.local.set({exemptions: exemptions}, function(){
+
+});
+chrome.storage.local.set({ [exemptions]: exemptions}, function() {
 });
 
 //accessing the enabled value to have the button text change
