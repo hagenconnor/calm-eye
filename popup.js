@@ -10,7 +10,7 @@ var optionsButton = document.getElementById('optionsButton');
 var exemptions = []; //Maintain a list of site exemptions.
 exemptions.push("https://www.google.ca/");
 
-chrome.storage.local.set({exemptions: exemptions}, function() {
+chrome.storage.local.set({[exemptions]: exemptions}, function() {
 });
 
 //accessing the enabled value to have the button text change
@@ -102,13 +102,3 @@ changeColor.onclick = function(element) {
 optionsButton.onclick = () => {
   window.open(chrome.runtime.getURL('options.html'));
 } 
-
-chrome.runtime.onMessage.addListener(
-  function(request, sender, sendResponse) {
-    console.log(sender.tab ?
-                "from a content script:" + sender.tab.url :
-                "from the extension");
-    if (request.greeting == "hello")
-      sendResponse({farewell: "goodbye"});
-  });
-
