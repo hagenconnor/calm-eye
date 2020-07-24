@@ -1,3 +1,12 @@
+/*
+  *Module Name: background.js
+  *Module Description: System background script. Performs initialization after installation.
+  *Authors: Daniel Kwan, Connor Hagen
+  *Date: Jul 24 2020
+  *Version: 1.0
+  *Known issues: None.
+  *Interfaces with: None.
+*/
 chrome.runtime.onInstalled.addListener(function() {
     chrome.storage.sync.set(null, function() {
     });

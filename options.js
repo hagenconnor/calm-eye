@@ -1,3 +1,12 @@
+/*
+  *Module Name: options.js
+  *Module Description: Extension options page. Controls page exemptions.
+  *Authors: Daniel Kwan, Connor Hagen
+  *Date: Jul 24 2020
+  *Version: 1.0
+  *Known issues: None.
+  *Inferfaces with: options.html, Chrome Storage API
+*/
 const kButtonColors = ['#3aa757', '#e8453c', '#f9bb2d', '#4688f1'];
 
 function constructOptions(kButtonColors) {
@@ -13,7 +22,10 @@ function constructOptions(kButtonColors) {
   }
 }
 constructOptions(kButtonColors);
-
+/*
+  *Artifact: Add exemption
+  *Description: Adds a given site to the exemption list and updates Chrome Storage API.
+*/
 const form1 = document.getElementById("exemptionAdd");
 form1.addEventListener("submit", function(addPage){
   var x = form1.elements.namedItem("site").value;
@@ -27,6 +39,10 @@ form1.addEventListener("submit", function(addPage){
     }
   });
 });
+/*
+  *Artifact: Delete exemption
+  *Description: Deletes a given site from the exemption list (if it exists) and updates Chrome Storage API.
+*/
 const form2 = document.getElementById("exemptionDelete");
 form2.addEventListener("submit", function(deletePage){
   var y = form2.elements.namedItem("site").value;
@@ -44,6 +60,11 @@ form2.addEventListener("submit", function(deletePage){
   });
 })
 
+/*
+  *Artifact: Print exemption list (debug)
+  *Description: Prints the current elements of the exemption list. 
+                Intended for debugging but should be implemented for customer usablilty.
+*/
 let debugButton = document.getElementById("debugButton");
 debugButton.addEventListener("click", function(){
   chrome.storage.local.get('exemptions', function(result){
